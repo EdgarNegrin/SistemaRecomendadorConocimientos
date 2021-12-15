@@ -4,6 +4,7 @@ class recomendador:
     self.documents = []
     self.items = []
     self.tf = []
+    self.idf = []
     self.loadFile(fileName)
     self.calculateTF()
     self.showInfo()
@@ -23,7 +24,23 @@ class recomendador:
       self.tf.append(list(zip(set(self.items[doc]), frecuenci)))
       
   def calculateIDF(self):
-    frecuenci = [self.items[doc].count(i) for i in self.items[doc]]
+    # Documentos que pueden ser recomendados
+    N = len(self.documents)
+    # Numero de documentos en donde la palabra aparece
+    tempIdf = []
+    for doc in range(len(self.documents)):
+      for item in range(len(self.tf[doc])):
+        tempIdf.append(self.tf[doc][item][0])
+        for docSearch in range(len(self.documents)):
+          if self.tf[item] in self.items[docSearch]:
+            tempIdf[item].append(docSearch)
+            break
+    
+    for doc in range(len(self.documents)):
+      for idf in tempIdf:
+        self.idf.append(list(zip(set(), len(idf))))
+    
+    # tf/raiz(suma tfs al cuadrado) -> para hacer la similitud
   
   # Muestra por pantalla los resultados
   def showInfo(self):

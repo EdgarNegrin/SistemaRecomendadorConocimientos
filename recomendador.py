@@ -31,7 +31,7 @@ class recomendador:
       print('{4}{0:6s}{4} {4}{1:24s}{4} {4}{2:3s}{4} {4}{3:3s}{4}'.format('Indice', 'Termino', 'TF', 'IDF', '|'))
       print()
       for item in range(len(self.tf[doc])):
-        print('{4}{0:6d}{4} {4}{1:30s}{4} {4}{2:3f}{4} {4}{3:3s}{4}'.format(item, self.tf[doc][item][0], self.tf[doc][item][1], 'IDF', '|'))
+        print('{4}{0:6d}{4} {4}{1:30s}{4} {4}{2:3d}{4} {4}{3:3s}{4}'.format(item, self.tf[doc][item][0], self.tf[doc][item][1], 'IDF', '|'))
       print("\n\n")
   
   

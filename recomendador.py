@@ -33,7 +33,7 @@ class recomendador:
         tempIdf.append(self.tf[doc][item][0])
         for docSearch in range(len(self.documents)):
           if self.tf[item] in self.items[docSearch]:
-            tempIdf[item].append(docSearch)
+            tempIdf[item].append(docSearch) 
             break
     
     for doc in range(len(self.documents)):

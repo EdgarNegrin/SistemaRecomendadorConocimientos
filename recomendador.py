@@ -1,5 +1,13 @@
+# Nombre: Edgar Negrin
+# Email: alu0101210964@ull.edu.es
+#
+# Practica: Sistemas de recomendación. Modelos Basados en el Contenido
+#
+# recomendador.py
+#
 import math
 
+# Clase recomendador que recibe el nombre del fichero del que se extraeran los documentos
 class recomendador:
   def __init__(self, fileName):
     self.documents = []
@@ -19,12 +27,12 @@ class recomendador:
   # Cargar documentos
   def loadFile(self, fileName):
     textFile = open(fileName, 'r')
-    self.documents = (textFile.readlines()) ## almacena los saltos de linea / hay que eliminarlos
+    self.documents = (textFile.readlines())
     for i in range(len(self.documents)):
       self.documents[i] = self.documents[i].replace(".", "").replace(",", "").replace("'", "").lower()
       self.items.append(self.documents[i].split())
   
-  
+  # Calculo de TF
   def calculateTF(self):
     for doc in range(len(self.items)):
       tf = []
@@ -35,17 +43,16 @@ class recomendador:
             frecuencia += 1
         tf.append((item1, frecuencia))
       self.tf.append(list(set(tf)))
-      
+  
+  # Calculo de IDF
   def calculateIDF(self):
-    # Documentos que pueden ser recomendados
     N = len(self.documents)
-    # Creacion de diccionario
     items = []
     for i in range(len(self.documents)):
       items += self.items[i]
     items = set(items)
     self.idf = dict.fromkeys(items, 0.)
-    # Numero de documentos en donde la palabra aparece
+    
     for item in self.idf:
       for docSearch in range(len(self.items)):
         if item in self.items[docSearch]:
@@ -54,8 +61,8 @@ class recomendador:
     for item in self.idf:
       self.idf[item] = math.log10(N / self.idf[item])
     
-  
-  def calculateTFIDF(self): ## No almacena el orden correctamente, repite los mismos items
+  # Calculo de TF-IDF
+  def calculateTFIDF(self): 
     for doc in range(len(self.documents)):
       tf_idf = []
       for item in range(len(self.tf[doc])):
@@ -63,7 +70,7 @@ class recomendador:
         tf_idf.append((self.tf[doc][item][0], cal))
       self.tf_idf.append(tf_idf)
     
-
+  # Calculo de similitud
   def similitudCoseno(self):
     for doc1 in range(len(self.documents)):
       tfDoc1 = [i[1]**2 for i in self.tf[doc1]] 
@@ -92,12 +99,12 @@ class recomendador:
         print('{5}{0:6d}{5} {5}{1:20s}{5} {5}{2:3d}{5} {5}{3:.3f}{5} {5}{4:.3f}{5}'.format(item, self.tf[doc][item][0], self.tf[doc][item][1], round(self.idf[self.tf[doc][item][0]], 3), round(self.tf_idf[doc][item][1], 3), '|'))
       print("\n\n")
 
-
+  # Muestra por pantalla los resultados del calculo de la similitud
   def showSimilitud(self):
     for doc1 in range(len(self.documents)):
-        print('Documento ', doc1)
-        print()
-        for doc2 in range(len(self.documents)):
-          print('Documento ', doc2, ': ', round(self.similitud[doc1][doc2], 3))
-        print()        
+      print('Documento ', doc1)
+      print()
+      for doc2 in range(len(self.documents)):
+        print('Documento ', doc2, ': ', round(self.similitud[doc1][doc2], 3))
+      print()        
   

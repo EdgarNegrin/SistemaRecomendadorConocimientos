@@ -1,11 +1,11 @@
-Practica: Sistemas de recomendación. Modelos Basados en el Contenido
+Practica: Sistemas de recomendación. Modelos Basados en el Contenido  
 
-Nombre: Edgar Negrin Gonzalez
-Email: alu0101210964@ull.edu.es
+Nombre: Edgar Negrin Gonzalez  
+Email: alu0101210964@ull.edu.es  
 
-**Ejemplo de uso**
+**Ejemplo de uso** 
 
-$ python3 main.py documents\documents-02.txt
+$ python3 main.py documents\documents-02.txt  
 
 Documento  0
 
